@@ -1,0 +1,10 @@
+c++ 右值引用 https://www.cnblogs.com/likaiming/p/9029908.html
+g++ -fno-elide-constructors
+算法复杂度  http://c.biancheng.net/view/6636.html
+
+c++ 11
+= 0 means that a function is pure virtual and you cannot instantiate an object from this class. You need to derive from it and implement this method
+= delete means that the compiler will not generate those constructors for you. AFAIK this is only allowed on copy constructor and assignment operator. But I am not too good at the upcoming standard.
+虚析构函数:
+  有时会让一个基类指针指向用 new 运算符动态生成的派生类对象；同时，用 new 运算符动态生成的对象都是通过 delete 指向它的指针来释放的。如果一个基类指针指向用 new 运算符动态生成的派生类对象，而释放该对象时是通过释放该基类指针来完成的，就可能导致程序不正确。
+
