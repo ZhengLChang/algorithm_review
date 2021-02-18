@@ -27,7 +27,17 @@ https://www.cnblogs.com/codingmylife/archive/2012/10/21/2732980.html
 前序遍历：一般打印使用前序遍历
 中序遍历：从小到达排序打印使用中序遍历
 后续遍历：先让每个节点的左右子树都遍历完成，再开始做自己的事情，应用在释放二叉树
+https://www.cnblogs.com/WindSun/p/10895787.html
 
 
 
 
+python
+
+    Numbers（数字） => 不可变数据类型
+    String（字符串）=> 不可变数据类型
+    List（列表）
+    Tuple（元组）=> 不可变数据类型
+    Dictionary（字典）
+
+Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)
