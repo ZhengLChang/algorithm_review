@@ -45,3 +45,9 @@ Redis支持五种数据类型：string（字符串），hash（哈希），list�
 c内存分配
 https://www.cnblogs.com/Ninac/archive/2013/04/23/3039023.html
 
+编译指令
+#pragma pack(1)
+gdb
+save breakpoints filename
+source filename
+set scheduler-locking on
