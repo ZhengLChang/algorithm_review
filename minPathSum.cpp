@@ -8,6 +8,33 @@ public:
     Solution(){
     }
     void operator=(Solution &) = delete;
+    int minPathSum(vector<vector<int> >& grid)
+    {
+        vector<vector<int> > dp = grid;
+        int width = dp.size();
+        int height = 0;
+        if(width <= 0)
+        {
+            return 0;
+        }
+        height = dp[0].size();
+        for(int i = 1; i < width; ++i)
+        {
+            dp[i][0] = dp[i - 1][0] + dp[i][0];
+        }
+        for(int j = 1; j < height; ++j)
+        {
+            dp[0][j] = dp[0][j - 1] + dp[0][j];
+        }
+        for(int i = 1; i < width; ++i)
+        {
+            for(int j = 1; j < height; j++)
+            {
+                dp[i][j] = min(dp[i - 1][j], dp[i][j  - 1]) + dp[i][j];
+            }
+        }
+        return dp[width - 1][height - 1];
+    }
     int get_max_path(vector<vector<int> >& grid)
     {
         /*
@@ -77,7 +104,16 @@ int main()
         {1, 5, 1},
         {4, 2, 1},
     };
-    cout << obj.get_max_path(path) << endl;
+    cout << obj.minPathSum(path) << endl;
+        for(int i = 0; i < path.size(); ++i)
+        {
+            for(int j = 0; j < path[0].size(); ++j)
+            {
+                cout << path[i][j] << " ";
+            }
+            cout << endl;
+        }
+
     return 0;
 }
 
