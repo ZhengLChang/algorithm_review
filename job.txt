@@ -63,3 +63,7 @@ gdb
 save breakpoints filename
 source filename
 set scheduler-locking on
+
+
+mysql
+https://blog.csdn.net/u010960184/article/details/82557978
