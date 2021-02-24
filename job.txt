@@ -6,6 +6,13 @@ g++ -fno-elide-constructors
 1. 迷宫问题 https://leetcode-cn.com/problems/minimum-path-sum/
   解法: https://blog.csdn.net/ProLayman/article/details/96325387
     
+C++单例的实现
+https://www.debugger.wiki/article/html/1550331735191819
+ 基础要点
+    1. 全局只有一个实例：static 特性，同时禁止用户自己声明并定义实例（把构造函数设为 private）
+    2. 线程安全
+    3. 禁止赋值和拷贝
+    4. 用户通过接口获取实例：使用 static 类成员函数
 
 c++ 11
 = 0 means that a function is pure virtual and you cannot instantiate an object from this class. You need to derive from it and implement this method
