@@ -2,6 +2,11 @@ c++ 右值引用 https://www.cnblogs.com/likaiming/p/9029908.html
 g++ -fno-elide-constructors
 算法复杂度  http://c.biancheng.net/view/6636.html
 
+算法笔试
+1. 迷宫问题 https://leetcode-cn.com/problems/minimum-path-sum/
+  解法: https://blog.csdn.net/ProLayman/article/details/96325387
+    
+
 c++ 11
 = 0 means that a function is pure virtual and you cannot instantiate an object from this class. You need to derive from it and implement this method
 = delete means that the compiler will not generate those constructors for you. AFAIK this is only allowed on copy constructor and assignment operator. But I am not too good at the upcoming standard.
