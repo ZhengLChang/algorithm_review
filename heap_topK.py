@@ -38,6 +38,7 @@ class heap_topK(object):
             self.heap_adjust(arr, arr_len, maxIdx)
     @property
     def result(self):
+        print(self.arr)
         tmp_arr = list(self.arr)
         for i in range(len(tmp_arr) - 1, -1, -1):
             tmp = tmp_arr[0]

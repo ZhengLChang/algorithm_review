@@ -67,3 +67,12 @@ set scheduler-locking on
 
 mysql
 https://blog.csdn.net/u010960184/article/details/82557978
+
+c++ lambda
+https://www.cnblogs.com/yaya12138/p/11815475.html
+[捕获列表](参数列表)->返回类型{函数体}
+[](int a, int b)->int{
+    return a + b;
+};
+
+
