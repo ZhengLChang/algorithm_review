@@ -101,20 +101,22 @@ public:
         }
         int single_word_size = words[0].size();
         int min_length = single_word_size * words_size;
+        unordered_map<string, int> cur_words_table(words_table.bucket_count());
         //cout << "single_word_size: " << single_word_size << endl;
         for(int i = 0; i + single_word_size <= s.size() && i + min_length <= s.size(); ++i)
         {
-            auto words_table_tmp = words_table;
+            //auto words_table_tmp = words_table;
             int need_match_num = words_size;
+            cur_words_table.clear();
             for(int m = i; m + single_word_size <= s.size(); m += single_word_size)
             {
                 bool is_match = false;
                 string substring = string(s, m, single_word_size);
-                if(words_table_tmp[substring] > 0)
+                if(words_table.find(substring) != words_table.end() &&
+                        cur_words_table[substring] < words_table[substring])
                 {
-                    is_match = true;
+                    ++cur_words_table[substring];
                     --need_match_num;
-                    --words_table_tmp[substring];
                 }
                 else
                 {
@@ -143,22 +145,24 @@ public:
 
 int main(void)
 {
-#if 1
-    with_hash::Solution s;
-#else
+    with_hash::Solution s_hash;
     Solution s;
-#endif
     /*
 "wordgoodgoodgoodbestword"
 ["word","good","best","good"]
 
        */
+    /*
     vector<string> words = {"word","good","best","good"};
+    string str = "wordgoodgoodgoodbestword";
+    */
+    vector<string> words(10, "a");
+    string str = "aaaaaaaaaaaa";
     vector<int> v;
     uint64_t t1 = GetNowUsecs();
     for(int i = 0; i < 10000; ++i)
     {
-        v = s.findSubstring("wordgoodgoodgoodbestword", words);
+        v = s.findSubstring(str, words);
     }
     uint64_t t2 = GetNowUsecs();
     cout << "Spend time: " << (t2 - t1) << endl;
@@ -166,6 +170,19 @@ int main(void)
     {
         cout << v[i] << endl;
     }
+    cout << "====without hash======" << endl;
+    t1 = GetNowUsecs();
+    for(int i = 0; i < 10000; ++i)
+    {
+        v = s.findSubstring(str, words);
+    }
+    t2 = GetNowUsecs();
+    cout << "Spend time: " << (t2 - t1) << endl;
+    for(int i = 0; i < v.size(); ++i)
+    {
+        cout << v[i] << endl;
+    }
+
     return 0;
 }
 
