@@ -35,24 +35,24 @@ public:
             }
             max_comon_str = max_comon_str > k ? max_comon_str:k;
             /*未全部进入
-              A   ----------
-              B           ----------
+              A num1  ----------
+              B num2          ----------
              */
-            if(nums2_begin == 0 &&
-                    nums1_begin != 0 &&
-                    nums2_end < nums2_size)
+            if(nums2_begin == 0 && /*B左边界漏出*/
+                    nums2_end < nums2_size && /*B右边界未划入*/
+                    nums1_begin != 0) /*A B左边界未重叠*/
             {
                 --nums1_begin;
                 ++nums2_end;
             }
             /*
                全部进入
-               A   -------------
-               B     ----------
+               A num1   -------------
+               B num2     ----------
              */
-            else if(nums2_begin == 0 &&
-                    (nums2_end == nums2_size || nums1_begin == 0)&&
-                    nums1_end - nums1_begin > 1)
+            else if(nums2_begin == 0 && /*B左边界在A中*/
+                    (nums2_end == nums2_size || nums1_begin == 0)&& /*B依然在A中滑行,或者处于临界条件*/
+                    nums1_end - nums1_begin > 1) /**/
             {
                 if(nums1_begin == 0)
                 {
@@ -67,16 +67,16 @@ public:
             }
             /*
                将从左侧出来
-               A      -------------
-               B     ----------
+               A num1      -------------
+               B num2     ----------
              */
-            else if(nums2_begin > 0 &&
-                    nums1_end - nums1_begin > 1)
+            else if(nums2_begin > 0 && /*滑倒左侧*/
+                    nums1_end - nums1_begin > 1) /*防止滑出*/
             {
                 --nums1_end;
                 ++nums2_begin;
             }
-            else
+            else /*对比结束*/
             {
                 break;
             }
