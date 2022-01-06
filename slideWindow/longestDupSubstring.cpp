@@ -116,13 +116,14 @@ public:
                 }
 
             }
-            if(mid_win_len == min_win_len)
+            if(mid_win_len == min_win_len || 
+                    mid_win_len == max_win_len)
             {
                 break;
             }
             if(is_match)
             {
-                min_win_len = mid_win_len;
+                min_win_len = mid_win_len + 1;
                 mid_win_len = (max_win_len - min_win_len)/ 2 + min_win_len;
             }
             else
@@ -139,9 +140,13 @@ public:
 
 int main()
 {
-    Bi::Solution s;
+    Solution s;
+    Bi::Solution s_bi;
     //string str = "banana";
-    string str = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    //string str = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    string str = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    //string str = "abcd";
     //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     //string str = "nnpxouomcofdjuujloanjimymadkuepightrfodmauhrsy";
@@ -150,6 +155,13 @@ int main()
     uint64_t t1 = GetNowUsecs();
     string longeststr = s.longestDupSubstring(str);
     uint64_t t2 = GetNowUsecs();
+    cout << "Spend time: " << (t2 - t1) << endl;
+    cout << longeststr << endl;
+
+    cout << "===== Bi ======" << endl;
+    t1 = GetNowUsecs();
+    longeststr = s_bi.longestDupSubstring(str);
+    t2 = GetNowUsecs();
     cout << "Spend time: " << (t2 - t1) << endl;
     cout << longeststr << endl;
     return 0;
