@@ -14,14 +14,38 @@ public:
         string substring = "";
         int substr_len = 0;
         int j = 0;
-        unordered_set<string> sub_set(124000);
+        if(s.size() <= 1)
+        {
+            return "";
+        }
+        unordered_set<string> sub_set(1240);
+        int win_len = s.size() - 1;
+        for(; win_len >= 1; --win_len)
+        {
+            sub_set.clear();
+            for(int i = 0; i + win_len <= s.size(); ++ i)
+            {
+                substring = s.substr(i, win_len);
+                if(sub_set.find(substring) == sub_set.end())
+                {
+                    sub_set.insert(substring);
+                }
+                else
+                {
+                    //cout << "sub_set.size() : " << sub_set.size() << endl;
+                    return substring;
+                }
+            }
+        }
+        return "";
+#if 0
         for(int i = 0; i < s.size(); ++i)
         {
             if(longest_str.size() > (s.size() - i))
             {
                 continue;
             }
-            for(j = i; j < s.size(); ++j)
+            for(j = s.size(); j < s.size(); ++j)
             {
                 substr_len = (j - i + 1);
                 if(longest_str.size() > substr_len)
@@ -39,18 +63,52 @@ public:
                     longest_str = substring;
                     if(longest_str.size() == s.size() - 1)
                     {
-        cout << sub_set.size() << endl;
                         return longest_str;
                     }
 
                 }
             }
         }
-        cout << sub_set.size() << endl;
         return longest_str;
+#endif
     }
 };
 
+namespace Bi
+{
+class Solution {
+public:
+    string longestDupSubstring(string s){
+        string longest_str = "";
+        string substring = "";
+        int substr_len = 0;
+        int j = 0;
+        if(s.size() <= 1)
+        {
+            return "";
+        }
+        unordered_set<string> sub_set(1240);
+        int win_len = s.size() - 1;
+        for(; win_len >= 1; --win_len)
+        {
+            for(int i = 0; i + win_len <= s.size(); ++ i)
+            {
+                substring = s.substr(i, win_len);
+                if(sub_set.find(substring) == sub_set.end())
+                {
+                    sub_set.insert(substring);
+                }
+                else
+                {
+                    //cout << "sub_set.size() : " << sub_set.size() << endl;
+                    return substring;
+                }
+            }
+        }
+        return "";
+    }
+};
+}
 
 int main()
 {
@@ -59,6 +117,7 @@ int main()
     //string str = "aa";
     //string str = "nnpxouomcofdjuujloanjimymadkuepightrfodmauhrsy";
     string str = "polxtvqlurgobbzbjcjsupskvzmtuveuavrzcxaifmdwqjbuejdasuxcvsupqnucorfawncjqkbakilhiekavhmsjbtlsfydijafxhgrgbsswtnvdquwokcliaxevairergwdtndsibiulqiutkcwsqpzuyypnhiowgvkkdbpkoyvgwyuqcokjnxluamwnuhqjtaossezwxvkpdkqcleqjkelcludtbigxkueupnxjncrbgvdrsdpppqqcopnwadqsxkvlkghfmtvdeygpyxamvxhmmaunxskgnenobvnzizbxwrjeedisrgzykoaidiffzqzsmirxkvfwmtifywamcpxziyjohcudzelgbmdgiaqwnzdbkwbhdioiokaivzlzscshrvbmggdztjuimribrgmdlcctvldbcxwpqnqbkzrcayqdqraobqcgoxxocclasphcjcydpkgkqhrmmxtklpxfxnrgnzczjxanaltnjhwfatgryqhcllemgqcchiagizpdgiqioqyhrpattutmuotrcwtxvdqzzsomofizebbqrgwruydyawsssjkakjpjlzmfhmjetymftxrhilpcgfqyoohyydnodfortlkeoncmfkdraiqydxcodyapjaxumjwczwmthrcecfgsswwtnyqurvggamjbsjdzmcuyefwnsrnhhpusfdsxbsrsrywbccullupdbovnmzluqsfdhqbef";
+    //string str = "abcd";
     uint64_t t1 = GetNowUsecs();
     string longeststr = s.longestDupSubstring(str);
     uint64_t t2 = GetNowUsecs();
