@@ -81,6 +81,7 @@ public:
     string longestDupSubstring(string s){
         string longest_str = "";
         string substring = "";
+        bool is_match = false;
         int substr_len = 0;
         int j = 0;
         if(s.size() <= 1)
@@ -88,35 +89,63 @@ public:
             return "";
         }
         unordered_set<string> sub_set(1240);
-        int win_len = s.size() - 1;
-        for(; win_len >= 1; --win_len)
+        int min_win_len = 1;
+        int max_win_len = s.size() - 1;
+        int mid_win_len = (max_win_len - min_win_len)/ 2 + min_win_len;
+        for(; ;)   
         {
-            for(int i = 0; i + win_len <= s.size(); ++ i)
+            //if(mid_win_len == min_win_len && max_win_len > min_win_len)
+            //{
+            //    ++mid_win_len;
+            //}
+            is_match = false;
+            sub_set.clear();
+            //cout << "mid_win_len: " << mid_win_len << endl;
+            for(int i = 0; i + mid_win_len <= s.size(); ++ i)
             {
-                substring = s.substr(i, win_len);
+                substring = s.substr(i, mid_win_len);
                 if(sub_set.find(substring) == sub_set.end())
                 {
                     sub_set.insert(substring);
                 }
                 else
                 {
-                    //cout << "sub_set.size() : " << sub_set.size() << endl;
-                    return substring;
+                    longest_str = substring;
+                    is_match = true;
+                    break;
                 }
+
+            }
+            if(mid_win_len == min_win_len)
+            {
+                break;
+            }
+            if(is_match)
+            {
+                min_win_len = mid_win_len;
+                mid_win_len = (max_win_len - min_win_len)/ 2 + min_win_len;
+            }
+            else
+            {
+                max_win_len = mid_win_len;
+                mid_win_len = (max_win_len - min_win_len)/ 2 + min_win_len;
             }
         }
-        return "";
+
+        return longest_str;
     }
 };
 }
 
 int main()
 {
-    Solution s;
+    Bi::Solution s;
     //string str = "banana";
-    //string str = "aa";
+    string str = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     //string str = "nnpxouomcofdjuujloanjimymadkuepightrfodmauhrsy";
-    string str = "polxtvqlurgobbzbjcjsupskvzmtuveuavrzcxaifmdwqjbuejdasuxcvsupqnucorfawncjqkbakilhiekavhmsjbtlsfydijafxhgrgbsswtnvdquwokcliaxevairergwdtndsibiulqiutkcwsqpzuyypnhiowgvkkdbpkoyvgwyuqcokjnxluamwnuhqjtaossezwxvkpdkqcleqjkelcludtbigxkueupnxjncrbgvdrsdpppqqcopnwadqsxkvlkghfmtvdeygpyxamvxhmmaunxskgnenobvnzizbxwrjeedisrgzykoaidiffzqzsmirxkvfwmtifywamcpxziyjohcudzelgbmdgiaqwnzdbkwbhdioiokaivzlzscshrvbmggdztjuimribrgmdlcctvldbcxwpqnqbkzrcayqdqraobqcgoxxocclasphcjcydpkgkqhrmmxtklpxfxnrgnzczjxanaltnjhwfatgryqhcllemgqcchiagizpdgiqioqyhrpattutmuotrcwtxvdqzzsomofizebbqrgwruydyawsssjkakjpjlzmfhmjetymftxrhilpcgfqyoohyydnodfortlkeoncmfkdraiqydxcodyapjaxumjwczwmthrcecfgsswwtnyqurvggamjbsjdzmcuyefwnsrnhhpusfdsxbsrsrywbccullupdbovnmzluqsfdhqbef";
+    //string str = "polxtvqlurgobbzbjcjsupskvzmtuveuavrzcxaifmdwqjbuejdasuxcvsupqnucorfawncjqkbakilhiekavhmsjbtlsfydijafxhgrgbsswtnvdquwokcliaxevairergwdtndsibiulqiutkcwsqpzuyypnhiowgvkkdbpkoyvgwyuqcokjnxluamwnuhqjtaossezwxvkpdkqcleqjkelcludtbigxkueupnxjncrbgvdrsdpppqqcopnwadqsxkvlkghfmtvdeygpyxamvxhmmaunxskgnenobvnzizbxwrjeedisrgzykoaidiffzqzsmirxkvfwmtifywamcpxziyjohcudzelgbmdgiaqwnzdbkwbhdioiokaivzlzscshrvbmggdztjuimribrgmdlcctvldbcxwpqnqbkzrcayqdqraobqcgoxxocclasphcjcydpkgkqhrmmxtklpxfxnrgnzczjxanaltnjhwfatgryqhcllemgqcchiagizpdgiqioqyhrpattutmuotrcwtxvdqzzsomofizebbqrgwruydyawsssjkakjpjlzmfhmjetymftxrhilpcgfqyoohyydnodfortlkeoncmfkdraiqydxcodyapjaxumjwczwmthrcecfgsswwtnyqurvggamjbsjdzmcuyefwnsrnhhpusfdsxbsrsrywbccullupdbovnmzluqsfdhqbef";
     //string str = "abcd";
     uint64_t t1 = GetNowUsecs();
     string longeststr = s.longestDupSubstring(str);
