@@ -1,6 +1,7 @@
 #include <cstring>
 #include <cstdint>
 #include <sys/time.h>
+#include <utility>
 #include <string>
 
 uint64_t GetNowUsecs()
@@ -30,6 +31,26 @@ struct StringComparer
     {
         return x1 == x2;
         return false;
+    }
+};
+
+struct PairHash
+{
+    const size_t operator()(const std::pair<int32_t, int32_t>& x)const
+    {
+        return x.second;
+        uint64_t v = (uint64_t)x.second;
+        uint32_t hash = 0xabcdef;
+        hash = hash ^ v;
+        return (size_t)(hash % 10240);
+        //return x.first ^ x.second;
+    }
+};
+struct PairComparer
+{
+    bool operator()(const std::pair<int32_t, int32_t> &x1, const std::pair<int32_t, int32_t> &x2) const
+    {
+        return x1.first == x2.first && x1.second == x2.second;
     }
 };
 
