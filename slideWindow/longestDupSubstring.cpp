@@ -452,7 +452,7 @@ public:
         {
             p_str[i] = (p_str[i] - 'a');
         }
-        //s = string(p_str, s.size());
+        s = string(p_str, s.size());
         for(; ;)   
         {
             is_match = false;
