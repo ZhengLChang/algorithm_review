@@ -33,17 +33,19 @@ struct StringComparer
         return false;
     }
 };
-
+#if 0
 struct PairHash
 {
     const size_t operator()(const std::pair<int32_t, int32_t>& x)const
     {
+#if 0
         return x.second;
         uint64_t v = (uint64_t)x.second;
         uint32_t hash = 0xabcdef;
         hash = hash ^ v;
         return (size_t)(hash % 10240);
-        //return x.first ^ x.second;
+#endif
+        return x.first ^ x.second;
     }
 };
 struct PairComparer
@@ -54,3 +56,4 @@ struct PairComparer
     }
 };
 
+#endif
