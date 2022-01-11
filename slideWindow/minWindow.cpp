@@ -32,10 +32,12 @@ public:
 
         int32_t need_match = t_size;
 
-        for(l = 0; l <= r; ++l){
-            if(l > 0){
-                auto s_iter = current_map.find(s.at(l - 1));
-                auto t_iter = target_map.find(s.at(l - 1));
+        for(l = 0, r = 0; l <= r && l < s_size; ++l){
+            //if(l > 0){
+            if(need_match == 0)
+            {
+                auto s_iter = current_map.find(s.at(l));
+                auto t_iter = target_map.find(s.at(l));
 
                 if(s_iter != current_map.end() && s_iter->second > 0){
                     if(t_iter != target_map.end() &&
@@ -43,10 +45,13 @@ public:
 
                         if(res_str.size() == 0 ||
                              res_str.size() > r - l + 1){
-                            res_str = s.substr(l - 1, r - l + 2);
+                            res_str = s.substr(l, r - l + 1);
+                            cout << "res_str: " << res_str << endl;
                         }
                         ++r;
                         ++need_match;
+                        --s_iter->second;
+                        continue;
                     }
                     --s_iter->second;
                 }
@@ -92,8 +97,9 @@ public:
 
 int main()
 {
-    string s = "AADOBECODEBANC", t = "ABC";
     Solution sol;    
+    //string s = "ab", t = "b";
+    string s = "AADOBECODEBANC", t = "ABC";
     //string s = "a", t = "a";
     //string s = "a", t = "aa";
 
