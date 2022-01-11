@@ -47,7 +47,6 @@ public:
         int32_t need_match = t_size;
 
         for(l = 0, r = 0; l <= r && l < s_size; ){
-            //if(l > 0){
             if(need_match == 0)
             {
                 auto s_iter = current_map.find(s.at(l));
@@ -109,6 +108,50 @@ public:
         return res_str;
     }
 };
+
+namespace Official{
+class Solution {
+public:
+    unordered_map <char, int> ori, cnt;
+
+    bool check() {
+        for (const auto &p: ori) {
+            if (cnt[p.first] < p.second) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    string minWindow(string s, string t) {
+        for (const auto &c: t) {
+            ++ori[c];
+        }
+
+        int l = 0, r = -1;
+        int len = INT_MAX, ansL = -1, ansR = -1;
+
+        while (r < int(s.size())) {
+            if (ori.find(s[++r]) != ori.end()) {
+                ++cnt[s[r]];
+            }
+            while (check() && l <= r) {
+                if (r - l + 1 < len) {
+                    len = r - l + 1;
+                    ansL = l;
+                }
+                if (ori.find(s[l]) != ori.end()) {
+                    --cnt[s[l]];
+                }
+                ++l;
+            }
+        }
+
+        return ansL == -1 ? string() : s.substr(ansL, len);
+    }
+};
+}
+
 
 int main()
 {
