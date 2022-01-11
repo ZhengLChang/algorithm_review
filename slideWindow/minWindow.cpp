@@ -21,14 +21,28 @@ public:
         unordered_map<char, int32_t> current_map(t_size);
         int32_t i = 0, j = 0;
         int32_t l = 0, r = 0;
+
+#if 1
         for(i = 0; i < t_size; ++i){
             auto iter = target_map.find(t.at(i));
-            if(iter != target_map.end()){
+            if(iter == target_map.end()){
                 target_map.insert(make_pair(t.at(i), 1));
             }else{
                 ++target_map[t.at(i)];
             }
         }
+#else
+
+        for(auto &c:t){
+            ++target_map[c];
+        }
+
+#endif
+
+        for(auto& iter : target_map){
+            //cout << iter.first << ", " << iter.second << endl;
+        }
+
 
         int32_t need_match = t_size;
 
@@ -99,10 +113,11 @@ public:
 int main()
 {
     Solution sol;    
-    //string s = "ab", t = "b";
+    string s = "ab", t = "b";
     //string s = "AADOBECODEBANC", t = "ABC";
     //string s = "a", t = "a";
-    string s = "a", t = "aa";
+    //string s = "a", t = "aa";
+    //string s = "aa", t = "aa";
 
     cout << "s: " << s << endl;
     cout << "t: " << t << endl;
