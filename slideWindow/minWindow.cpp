@@ -32,7 +32,7 @@ public:
 
         int32_t need_match = t_size;
 
-        for(l = 0, r = 0; l <= r && l < s_size; ++l){
+        for(l = 0, r = 0; l <= r && l < s_size; ){
             //if(l > 0){
             if(need_match == 0)
             {
@@ -46,10 +46,10 @@ public:
                         if(res_str.size() == 0 ||
                              res_str.size() > r - l + 1){
                             res_str = s.substr(l, r - l + 1);
-                            cout << "res_str: " << res_str << endl;
                         }
                         ++r;
                         ++need_match;
+                        ++l;
                         --s_iter->second;
                         continue;
                     }
@@ -58,6 +58,7 @@ public:
             }
 
             if(need_match == 0){
+                ++l;
                 continue;
             }
 
@@ -99,9 +100,9 @@ int main()
 {
     Solution sol;    
     //string s = "ab", t = "b";
-    string s = "AADOBECODEBANC", t = "ABC";
+    //string s = "AADOBECODEBANC", t = "ABC";
     //string s = "a", t = "a";
-    //string s = "a", t = "aa";
+    string s = "a", t = "aa";
 
     cout << "s: " << s << endl;
     cout << "t: " << t << endl;
