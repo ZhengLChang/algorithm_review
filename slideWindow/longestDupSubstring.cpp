@@ -644,7 +644,8 @@ public:
 int main()
 {
     //Official::Solution s;
-    Bi::Solution s;
+    Bi2::Solution s;
+    //Solution s;
     Official::Solution s_bi;
     
     vector<string> vs;
@@ -686,8 +687,10 @@ int main()
         cout << endl;
         cout << "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" << endl;
         str = vs[i];
+        cout << str << endl;
         uint64_t t1 = GetNowUsecs();
         string longeststr = s.longestDupSubstring(str);
+        //string longeststr;
         uint64_t t2 = GetNowUsecs();
         //cout << "Spend time: " << (t2 - t1)  << "=>" << s.proc_time << endl;
         cout << "Spend time: " << (t2 - t1)   << endl;
@@ -696,13 +699,14 @@ int main()
         cout << "===== Official ======" << endl;
         t1 = GetNowUsecs();
         string longeststr_bi = s_bi.longestDupSubstring(str);
+        cout << longeststr_bi << endl;
         t2 = GetNowUsecs();
         cout << "Spend time: " << (t2 - t1) << endl;
         //cout << longeststr_bi.size() << " => " << longeststr_bi << endl;
         //cout << "Equal? " << (longeststr == longeststr_bi) << endl;
         if(longeststr != longeststr_bi)
         {
-            return -1;
+            //return -1;
         }
     }
 

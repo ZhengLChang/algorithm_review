@@ -52,8 +52,10 @@ public:
 #include <unordered_set>
 #include <iostream>
 #include <algorithm>
+#include "../util.h"
 
 
+using namespace std;
 class Solution{
 public:
     int lengthOfLongestSubstring(std::string s){
@@ -77,9 +79,39 @@ public:
     }
 };
 
+namespace BI
+{
+class Solution{
+public:
+    int lengthOfLongestSubstring(std::string s){
+        int32_t l = 1, r = s.size(), mid = l + (r - l + 1) / 2;
+        int32_t i = 0, ans = 0;
+        unordered_map<char, int32_t> occ_map;
+        char head_char = 0;
+        bool is_repeated = false;
+
+        while(l <= r){
+            mid = l + (r - l + 1) / 2;
+            head_char = s.at(0);
+            
+            occ_map.clear(); 
+            for(i = 0; i + mid < s.size(); ++i){
+                if(occ_map.in)
+            }
+
+        }
+    }
+};
+}
+
 
 int main(void)
 {
     Solution s;
-    std::cout << s.lengthOfLongestSubstring("21233333333333333") << std::endl;
+    uint64_t t1 = GetNowUsecs();
+    string str = "uirqkccmgnpbqwfkmplmfovxkjtgxbhwzqdlydunpuzxgvodnaanxpdiuhbitfllitaufvcmtneqmvibimvxmzvysignmsfykppdktpfhhcayfcwcrtjsgnyvzytevlqfabpjwxvjtfksztmdtrzgagdjtpeozzxppnkdbjayfbxqrqaefkcdbuvteobztucgdbcmlgnxldcwtzkvhwqxbsqlbsrbvesemhnbswssqvbiketdewfauvtzmyzrrqslzagjcyuznkpkgpkkinldxcjtuoumcbcttabfuzjbtoqjqbpnsemojbtctvdmobnuutcsfmhkrbwkmpdcdncqizgtlqekvqophqxewkpxpkrgjivrtarxtwbbfhfikbrdwohppyiyyztopksdmxvqiaafswyjfnlwntldwniypzaxrscyqfrlqehqgzaxxazfwtwjajsrmwuerdqklhwoqxptcvqoqbjwfqrewirtcbskmkaqgtcnxnsqmwgwjxruhyyjtbuivvepnxiwjmtlrvexjzevctflajibxkvmbzdfwoqobmhstgpshtxitwttpkdvfmfwtwsazfgzwbtmqrowrcesyyeuwunodesrzbmjbxnchaqptfgqlknuarhgnsbwnucdhckpbwhtwhejivrmuccbwnyenyvonquscneswngwbkjysxvdwbzymwxcrnexrxhmuwvycmsiazmqavgmyurbcmvdjplloidbzacunerwobvaxsromiiwzqxnrsjpyoacfxcmmogmokhpmhxzkdzmpjcrgaeihdhczrmxmfurjatuwxriiwtfojwvkkybcdmwayhnzrnqrynwtrvmtgtrxndlbtlhyzfjtbtvqujjuwpibuonuwjdfvnhdqqzlmwwheztjkrrzrroogovapywxkjsccjnseanhxijybintgbjwlkmdzuoeclfqatffgjvcbujovunnauprhoocxzghzvsmuyhsl";
+    std::cout << s.lengthOfLongestSubstring(str) << std::endl;
+    uint64_t t2 = GetNowUsecs();
+    cout << "Spend time: " << (t2 - t1) << endl;
+    return 0;
 }
