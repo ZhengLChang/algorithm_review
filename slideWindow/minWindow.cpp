@@ -21,8 +21,8 @@ public:
         }
         unordered_map<char, int32_t> target_map(need_match);
         unordered_map<char, int32_t> current_map(need_match);
-        string res_str;
         int32_t l = 0, r = 0;
+        int32_t target_left = -1, target_len = INT_MAX;
 
         //init target map
         for(const auto &c:t){
@@ -37,9 +37,9 @@ public:
                 if(s_iter != current_map.end() && s_iter->second > 0){
                     if(t_iter != target_map.end() &&
                             s_iter->second <= t_iter->second){
-                        if(res_str.size() == 0 ||
-                             res_str.size() > r - l + 1){
-                            res_str = s.substr(l, r - l + 1);
+                        if(target_len > r - l + 1){
+                            target_len = r - l + 1;
+                            target_left = l;
                         }
                         ++r;
                         ++need_match;
@@ -69,16 +69,14 @@ public:
                 }
             }
             if(need_match != 0){
-                return res_str;
-            }else{
-                if(res_str.size() == 0 ||
-                        res_str.size() > r - l + 1){
-                    res_str = s.substr(l, r - l + 1);
-                }
+                break;
+            }else if(target_len > r - l + 1){
+                target_len = r - l + 1;
+                target_left = l;
             }
         }
 
-        return res_str;
+        return target_left == -1 ? string():s.substr(target_left, target_len);
     }
 };
 
@@ -129,11 +127,11 @@ public:
 int main()
 {
     Solution sol;    
-    //string s = "ab", t = "b";
+    string s = "ab", t = "b";
     //string s = "AADOBECODEBANC", t = "ABC";
     //string s = "a", t = "a";
     //string s = "a", t = "aa";
-    string s = "aa", t = "aa";
+    //string s = "aa", t = "aa";
 
     cout << "s: " << s << endl;
     cout << "t: " << t << endl;
