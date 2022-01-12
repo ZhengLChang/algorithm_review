@@ -10,52 +10,33 @@ using namespace std;
 
 class Solution {
 public:
+    int32_t s_size = 0;
+    int32_t need_match = 0;
+
     string minWindow(string s, string t) {
-        int32_t s_size = s.size();
-        int32_t t_size = t.size();
-        string res_str;
-        if(s_size < t_size){
+        s_size = s.size();
+        need_match = t.size();
+        if(s_size < need_match){
             return "";
         }
-        unordered_map<char, int32_t> target_map(t_size);
-        unordered_map<char, int32_t> current_map(t_size);
-        int32_t i = 0, j = 0;
+        unordered_map<char, int32_t> target_map(need_match);
+        unordered_map<char, int32_t> current_map(need_match);
+        string res_str;
         int32_t l = 0, r = 0;
 
-#if 1
-        for(i = 0; i < t_size; ++i){
-            auto iter = target_map.find(t.at(i));
-            if(iter == target_map.end()){
-                target_map.insert(make_pair(t.at(i), 1));
-            }else{
-                ++target_map[t.at(i)];
-            }
-        }
-#else
-
-        for(auto &c:t){
+        //init target map
+        for(const auto &c:t){
             ++target_map[c];
         }
 
-#endif
-
-        for(auto& iter : target_map){
-            //cout << iter.first << ", " << iter.second << endl;
-        }
-
-
-        int32_t need_match = t_size;
-
         for(l = 0, r = 0; l <= r && l < s_size; ){
-            if(need_match == 0)
-            {
+            if(need_match == 0){
                 auto s_iter = current_map.find(s.at(l));
                 auto t_iter = target_map.find(s.at(l));
 
                 if(s_iter != current_map.end() && s_iter->second > 0){
                     if(t_iter != target_map.end() &&
                             s_iter->second <= t_iter->second){
-
                         if(res_str.size() == 0 ||
                              res_str.size() > r - l + 1){
                             res_str = s.substr(l, r - l + 1);
@@ -68,9 +49,6 @@ public:
                     }
                     --s_iter->second;
                 }
-            }
-
-            if(need_match == 0){
                 ++l;
                 continue;
             }
@@ -80,16 +58,11 @@ public:
                 if(t_iter == target_map.end()){
                     continue;
                 }
+                ++current_map[s.at(r)];
+
                 auto s_iter = current_map.find(s.at(r));
-                if(s_iter == current_map.end()){
-                    current_map.insert(make_pair(s.at(r), 1));
+                if(s_iter != current_map.end() && s_iter->second <= t_iter->second){
                     --need_match;
-                }else if(s_iter->second < t_iter->second){
-                    ++s_iter->second;
-                    --need_match;
-                }
-                else if(s_iter->second >= t_iter->second){
-                    ++s_iter->second;
                 }
                 if(need_match == 0){
                     break;
@@ -156,11 +129,11 @@ public:
 int main()
 {
     Solution sol;    
-    string s = "ab", t = "b";
+    //string s = "ab", t = "b";
     //string s = "AADOBECODEBANC", t = "ABC";
     //string s = "a", t = "a";
     //string s = "a", t = "aa";
-    //string s = "aa", t = "aa";
+    string s = "aa", t = "aa";
 
     cout << "s: " << s << endl;
     cout << "t: " << t << endl;
