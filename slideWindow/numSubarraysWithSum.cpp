@@ -28,8 +28,37 @@ public:
     }
 };
 
+namespace Optimial{
+class Solution {
+public:
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        const int32_t min_win = (goal != 0 ? goal:1);
+        int32_t left = 0, right = 0;
+        int32_t sum = 0;
+        int32_t result = 0;
+
+        for(left = 0; left + min_win <= nums.size(); ++left){
+            if(left != 0){
+                sum -= nums[left - 1];
+            }
+            for(; right < nums.size(); ){
+                sum += nums[right];
+                if(sum == goal){
+                    ++result;
+                }else if(sum > goal){
+                    break;
+                }
+                else if(sum < goal){
+                    ++right;
+                }
+            }
+        }
+        return result;
+    }
+};
+}
 int main(void){
-    Solution sol;
+    Optimial::Solution sol;
     //vector<int32_t> nums = {1,0,1,0,1};
     //int32_t goal = 2;
     //vector<int32_t> nums = {0,0,0,0,0};
