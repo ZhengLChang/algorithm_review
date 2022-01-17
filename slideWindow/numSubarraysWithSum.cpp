@@ -3,6 +3,8 @@
    */
 #include <iostream>
 #include <vector>
+#include <unordered_map>
+#include "../util.h"
 
 using namespace std;
 class Solution {
@@ -32,27 +34,22 @@ namespace Optimial{
 class Solution {
 public:
     int numSubarraysWithSum(vector<int>& nums, int goal) {
-        const int32_t min_win = (goal != 0 ? goal:1);
-        int32_t left = 0, right = 0;
-        int32_t sum = 0;
+        unordered_map<int32_t, int32_t> cnt_tab;
+        int sum = 0;
         int32_t result = 0;
 
-        for(left = 0; left + min_win <= nums.size(); ++left){
-            if(left != 0){
-                sum -= nums[left - 1];
-            }
-            for(; right < nums.size(); ){
-                sum += nums[right];
-                if(sum == goal){
-                    ++result;
-                }else if(sum > goal){
-                    break;
-                }
-                else if(sum < goal){
-                    ++right;
-                }
-            }
+        for(const auto& num:nums){
+            ++cnt_tab[sum];
+            sum += num;
+            //cout << (sum - goal) << " ===> " << cnt_tab[sum - goal] << endl;;
+            result += cnt_tab[sum - goal];
         }
+#if 0
+        for(const auto& obj:cnt_tab){
+           cout << "sum: " << obj.first << ",cnt: " << obj.second << endl;
+        }
+#endif
+
         return result;
     }
 };
@@ -60,6 +57,7 @@ public:
 int main(void){
     Optimial::Solution sol;
     //vector<int32_t> nums = {1,0,1,0,1};
+    //cout << "nums = {1,0,1,0,1}" << endl;
     //int32_t goal = 2;
     //vector<int32_t> nums = {0,0,0,0,0};
     //int32_t goal = 0;
